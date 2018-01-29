@@ -23,7 +23,7 @@ Hint: Try to solve it by using the prepared documentation which contains a few h
 
 Please download the following `.zip`-File. It provides the basic structure of a Java Project implementing the concepts of the property pattern. Import/open the project in your favorite Java IDE (e.g. IntelliJ, Eclipse).
 
-[implementing-properties](https://goo.gl/tQmJmH)
+[implementing-properties](https://goo.gl/MqXuPF)
 
 ### Basic Tasks
 
