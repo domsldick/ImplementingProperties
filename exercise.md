@@ -15,6 +15,8 @@ Please download the following `.zip`-File. It provides the basic structure of a 
 
 [implementing-properties](https://)
 
+### Basic Tasks
+
 1. Try to get familiar with the class structure provided by the project. Try to understand the different relationships. Especially take a look at the class `HashMapProperties.java` which represents a concrete implementation of a Property List. It implements the Interface `Properties` which provides the core API of the Property Pattern.  
 
 2.  Implement the `put`-Method to add new properties to the HashMap. It is located in the class `HashMapProperties.java`.
