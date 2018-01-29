@@ -25,7 +25,7 @@ Hints:
 
 3. Class `HashMapProperties.java`: Implement the `get`-Method to retrieve a property by it's name from the HashMap.
 
-Hint:
+      Hint:
 * Try to think about the two possible cases, where the given property can be located.
 
 3. Adding a property to the project
