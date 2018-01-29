@@ -2,9 +2,19 @@
 
 ## Basics on Property Modeling Approaches
 
-The following two figures show two different problems in modeling dynamic properties. Interpret each figure and try to identify which property type is modeled.  
+The exercise is starting with a short theoretical task. The following figures show two different UML-diagrams of particular Dynamic Propery approaches. 
+Try to understand the differnet relations and implementations of the diagrams and answer the follwoing questions: 
+
+1. Which Dynamic Property Approaches are used in the figures? Write out the typical characteristics and differences between the shown UML-diagramms.
+
+2. What's the main difference between Dynamic Properties and Fixed Properties? Which advantages and disadvantages do Dynamic Properties implicate?
 
 ![uml1](figures/uml1.png)
+![uml2](figures/uml2.png)
+
+Hint: Try to solve it by using the prepared documentation which contains a few hints: 
+
+![table](figures/PropertyApproaches.png)
 
 
 ## Implementing the core API of the property pattern
