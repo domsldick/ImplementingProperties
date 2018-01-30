@@ -37,8 +37,7 @@ _Hints_:
 
 3. Implement the `get`-Method to retrieve a property by it's name from the HashMap. It is located in the class `HashMapProperties.java`.
 
-_Hint_:
-	* Try to think about the two possible cases, where the given property can be located.
+_Hint_: Try to think about the two possible cases, where the given property can be located.
 
 
 3. If the `put`and `get`-Methods are implemented correctly, try to build and run this project in the `main`-class. Can you see the differences of Inheritance of this soccer example?  
