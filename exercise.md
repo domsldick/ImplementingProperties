@@ -25,7 +25,7 @@ Please download the following `.zip`-File. It provides the basic structure of a 
 
 [implementing-properties](https://goo.gl/MqXuPF)
 
-### Basic Tasks
+### Implementation Tasks
 
 1. Try to get familiar with the class structure provided by the project. Try to understand the different relationships. Especially take a look at the class `HashMapProperties.java` which represents a concrete implementation of a Property List. It implements the Interface `Properties` which provides the core API of the Property Pattern. As you surely remember this API should basicly offer `get`, `put`, `has` and ``remove` methods.
 
