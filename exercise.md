@@ -3,7 +3,7 @@
 ## Basics on Property Modeling Approaches
 
 The exercise is starting with a short theoretical task. The following figures show two different UML-diagrams of particular Dynamic Propery approaches. 
-Try to understand the differnet relations and implementations of the diagrams and answer the follwoing questions: 
+Try to understand the different relations and implementations of the diagrams and answer the following questions: 
 
 1. Which Dynamic Property Approaches are used in the figures? Write out the typical characteristics and differences between the shown UML-diagramms.
 
@@ -27,7 +27,7 @@ Please download the following `.zip`-File. It provides the basic structure of a 
 
 ### Basic Tasks
 
-1. Try to get familiar with the class structure provided by the project. Try to understand the different relationships. Especially take a look at the class `HashMapProperties.java` which represents a concrete implementation of a Property List. It implements the Interface `Properties` which provides the core API of the Property Pattern.  
+1. Try to get familiar with the class structure provided by the project. Try to understand the different relationships. Especially take a look at the class `HashMapProperties.java` which represents a concrete implementation of a Property List. It implements the Interface `Properties` which provides the core API of the Property Pattern. As you surely remember this API should basicly offer `get`, `put`, `has` and ``remove` methods.
 
 2.  Implement the `put`-Method to add new properties to the HashMap. It is located in the class `HashMapProperties.java`.
 
