@@ -96,7 +96,7 @@
 
 ```java
 class Player {
-    public Date getDateOfBirth()>;
+    public Date getDateOfBirth();
     public int getAge();
     public int getSalary();
     public SoccerTeam getEmployer();
@@ -137,14 +137,13 @@ Dynamic Properties give a parameterizable attribute wich can be represent differ
 
 <p>The Flexible Dynamic Property is the easiest form of implemtation. In this case you provide an attribute paramterized with a string. The Property himself is declared by just using the string.<p>
 
-
-'''java
+```java
 class Player {
     public Object getValueOf (String key);
     public void setValueOf (String key, Object value);
     
     Messi.setValueOf ("vacationAddress", anAddress);
-    Address messiVacation = (Address) messi.getValueOf ("VacationAddress");</
+    Address messiVacation = (Address) messi.getValueOf ("VacationAddress");
 }
 ```
 
@@ -153,11 +152,12 @@ class Player {
 ```java
 class Player {
     public Object getValueOf (String key);
-    if (key = "VacationAddress") return calculatedVacationAddress();
-    if (key = "VacationPhone") return getVacationPhone();
+     if (key = "VacationAddress") return calculatedVacationAddress();
+     if (key = "VacationPhone") return getVacationPhone();
 
-    // else return stored value
+     // else return stored value
 }
+```
 
 
 <p>To sum it up, the Dynamic Flexible Property shows the simple adding of dynamic properties at its best and there is no recompiling of the class necessary. But the reduction of clarity of dependencies is intense and the possibility of design-time checking is lost. <p>
@@ -166,69 +166,70 @@ class Player {
 
 <p> An enlargement of the Flexible Dynamic Propertiy is the so called Defined Dynamic Property. It provides an attribute parameterized with an instance of some type. The property is declared then by creating a new instance of that type.<p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">Player</span><span class="p">{</span>
-    <span class="k">public Object getValueOf (ContactType key);</span>
-    <span class="k">public void setValueOf (ContactType key, Object value);</span>
-    <span class="k">}</span>
-    <span class ="k"></span>
-    </code></pre></div></div>
+```java
+class Player {
+    public Object getValueOf (ContactType key);
+    public void setValueOf (ContactType key, Object value);
+    }
+```    
 
 <p> The implementation is very similar to the Felxible Dynamic Property, but the key is limited by the instances of ContactType. Furthermore the adding during runtime is still possible. The code below shows a possible class ContactType.<p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">ContactType</span><span class="p">{</span>
-    <span class="k">public static Enumeration instances();</span>
-    <span class="k">public boolean hasInstanceNamed (String name);</span>
-    <span class="k">public static ContactType get (String name);</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+class ContactType {
+   public static Enumeration instances();
+   public boolean hasInstanceNamed (String name);
+   public static ContactType get (String name);
+   }
+   
+```
 
 <p> The Defined Dynamic Property is also conmplicated in substitution for operations. A possible way to solve this problem is the so called checking by implementing some if-conditions. The code below shows a clean-up code example.<p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">Player</span><span class="p">{</span>
-    <span class="k">public static ContactType get (String name) {</span>
-    <span class="k">if (! hasInstanceNamed (name))</span>
-    <span class="k">throw new IllegalArgumentException</span>
-    <span class="k">("No such contact type");</span>
-    <span class="k">// return the contact type</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+class Player {
+   public static ContactType get (String name) {
+    if (! hasInstanceNamed (name))
+    throw new IllegalArgumentException
+    ("No such contact type");
+    // return the contact type
+   } 
+```
 
 <p> All in all the Defined Dynamic Property is a useful enlargement of the Flexible Dynamic Property. The keys are limited by the instance of contact type with the possibility of adding properties at run time. By using the checking-method, the client is able to look up a list with all legal keys. But still the problem of difficult substitution for operations exists. <p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">ContactType</span><span class="p">{</span>
-    <span class="k">public static Enumeration instances();</span>
-    <span class="k">public boolean hasInstanceNamed (String name);</span>
-    <span class="k">public static ContactType get (String name);</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+class ContactType {
+    public static Enumeration instances();
+    public boolean hasInstanceNamed (String name);
+    public static ContactType get (String name);
+    }
+```
 
 <p><h3> <strong> 2.6) The Typed Dynamic Property </strong> </h3><p>
 
 <p>The Typed Dynamic Property is a additional enlargement of the Defined Dynamic Property. Therefore you provide an attribute parameterized with an instance of some type. The client just declares a property by creating a new instance of that type and specifies the value type of the property. The code implements the class Player by using a Typed Dynamic Property and the checking-method.<p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">Player</span><span class="p">{</span>
-    <span class="k">public Object getValueOf (ContactType key);</span>
-    <span class="k">public void setValueOf (ContactType key, Object value);</span>
-    <span class="k">if (!key.getValueType().isInstance(value))</span>
-    <span class="k">throw IllegalArgumentException</span>
-    <span class="k">("Incorrect type for property")</span>
-    <span class="k">// set the value</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+class Player {
+    public Object getValueOf (ContactType key);
+    public void setValueOf (ContactType key, Object value);
+     if (!key.getValueType().isInstance(value))
+     throw IllegalArgumentException
+     ("Incorrect type for property")
+     // set the value
+    }
+
+```
 
 <p>Instances of the contact type indicates the properties the Player has and the type of each property. The type is constraining the value.<p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">ContactType</span><span class="p">{</span>
-    <span class="k">public class getValueType();</span>
-    <span class="k">public contactType (String name, Class valueType);</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+class ContactType {
+    public class getValueType();
+    public contactType (String name, Class valueType);
+    }
+```
 
 <p>The main advantage of the Typed Dynamic Property are the Instances of contact type, which are suggesting what properties the Player has and the type of each property. Furthermore the constraining of the value by the type is a very useful enlargement. The possiblity of run time checking by using checking methods avoids errors and there is a good usage for stronlgy typed environments.<p>
 
@@ -237,13 +238,13 @@ class="k">class</span> <span class="nc">ContactType</span><span class="p">{</spa
 
 <p> The next form of a dynamic property is the so called Defined Dynamic Property. The client creates a separate object for each property. Facts about that property can then be made properties of that object. It is a further enlargement of the Typed Dynamic Property. The code below shows the implementing of the class ContactProperty and class Player.<p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">ContactProperty</span><span class="p">{</span>
-    <span class="k">public object getValue();</span>
-    <span class="k">public Class getType();</span>
-    <span class="k">public ContactType getIndex();</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+class ContactProperty {
+    public object getValue();
+    public Class getType();
+    public ContactType getIndex();
+    }
+```
 
 <p>The Separate Property makes the Property it`s own object. The client is able to describe more details about the property within the class and it represents just another form of the Typed Dynamic Property. <p>
 
@@ -251,19 +252,19 @@ class="k">class</span> <span class="nc">ContactProperty</span><span class="p">{<
 
 <p>The named examples of dynamic properties above had the focus on Single-valued associations for each key. But there are also the possiblities of implementing Multi-Valued associations. One Possibility to fix this is the Typed Relationship. The client creates a relationship object for each link between the two objects and gives the relationship object a type object to indicate the meaning of the relationship itself. The type object is the name of the multi-valued property. The code below shows a possible implementation of a Typed Relationship.<p>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">Skill</span><span class="p">{</span>
-    <span class="k">public Skill (Player player, Skill skill, SkillType type);</span>
-    <span class="k">public void terminate();</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+clas Skill {
+   public Skill (Player player, Skill skill, SkillType type);
+   public void terminate();
+   }
+ ```
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span
-class="k">class</span> <span class="nc">Player</span><span class="p">{</span>
-    <span class="k">public Enumeration getSkills();</span>
-    <span class="k">public void addSkill (Skill skill, SkillType type);</span>
-    <span class="k">}</span>
-    </code></pre></div></div>
+```java
+class Player {
+   public Enumeration getSkills();
+   public void addSkill (Skill skill, SkillType type);
+   }
+```
 
 <p> The Typed Relationship is perfect for bi-directional relationships and easy to implement. The client can also provides a simple point to add properties into the relationship. <p>
  
