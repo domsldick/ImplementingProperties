@@ -143,7 +143,7 @@ class Player {
     public void setValueOf (String key, Object value);
     
     Messi.setValueOf ("vacationAddress", anAddress);
-    Address messiVacation = (Address) messi.getValueOf ("VacationAddress");
+    Address messiVacation = (Address) Messi.getValueOf ("VacationAddress");
 }
 ```
 
