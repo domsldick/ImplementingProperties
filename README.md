@@ -419,7 +419,7 @@ interface CloneableProperties<N, V> extends Properties<N, V>, Cloneable {
   }
 ``` 
 
-### Deleting properties
+#### Deleting properties
 <p>The deletion of a property from the list represents faces a special situation. There can be a so called "Deletion problem" for inherited property lists. This go's back to the above mentioned problem of how to present missing values (Is it null oder should it be a special value NOT_PRESENT?). This problem only occurs in case of inheritance in the property list. The concrete situation here is when the child looses an inherited value. Because by lookup for the property your target for the lookup is the parent - and there this value is still present. If you want to remove that value only for the local property you should mark it only in the local property list (e.g. by setting the property on NOT_PRESENT or null). If you edit the parent's property all children inherit this value - so we change it globally but it is just a local change in one instance.</p>
 
 
