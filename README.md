@@ -273,14 +273,9 @@ class Player {
 <p> Another form is the Extrinsic Property. It answers the question how a client gives an object a property without changing its inferface. The client is making another object responsible for knowing about the property. A good example is a connection system, where a connection manager is controlling the properties of every connection, for example is busy or is free. He opens and closes new connections and is responsible for the administration of all properties and connections.<p>
 
 
+## 3) Implementing the Property Pattern
 
-
-
-
-
-## Implementing the Property Pattern
-
-### Getting familiar 
+### 3.1) Getting familiar 
 
 <p>After reading more about different approaches to model various kinds of problems as a property and the comparison of the fixed and the dynamic properties we're moving on to different rules to implement the property pattern.</p> 
 
@@ -294,7 +289,7 @@ class Player {
 
 <p>This is just a formal example to get familiar with the way that properties are being inherited and connected. This is the basis for understanding the property pattern.</p>
 
-### The pattern itself
+### 3.2) The pattern itself
 
 #### Definition
 <p>
@@ -320,7 +315,7 @@ class Player {
     </ul>
 </p>
 
-#### Basic Requirements
+### 3.3) Basic Requirements
 <p>In a type safe language (e.g. Java, C#) the property pattern is mostly implemented by using some kind of key-value Data Structure (e.g. Map) to store the different Properties. The DataStructure represents the Objects.In the following the code examples are completely based on Java.</p>
 
 ##### The Data Structure 
@@ -356,11 +351,29 @@ remove(name)
 #### Implementing the Core API
 
 <p>Now let's go through the implementation on a concrete implemntation example. We have a interface Properties which represents our named core API:</p>
-# EINFÜGEN: CODE PROPERTIES
+
+```java 
+interface Properties<N, V> {
+ 
+  V get(N name);
+ 
+  V put(N name, V value);
+ 
+  boolean has(N name);
+ 
+  V remove(N name);
+}
+```
 
 <p>In addition we have an interface CloneableProperties which is extended by 'Cloneable' to make sure we can clone our properties. This is for using the prototpye pattern as mentioned before.</p>
 
-# EINFÜGEN: CODE CLONABLE PROPERTIES
+
+```java 
+interface CloneableProperties<N, V> extends Properties<N, V>, Cloneable {
+ 
+  CloneableProperties<N, V> clone();
+}
+```
 
 <p>In this example there is concrete implementation of the property pattern using a HashMap as our data structure. This implementation is done in the class `HashMapProperties`. In the heart of this class there is the just named HashMap storing the properties. Additionally there is a reserved constant `PROTOTYPE` which represents the link to a parent clone or prototype (if existent). To see the full implementation you can view the <a href="implementing-properties_lsg.zip">exercise solution</a> with the corresponding project.</p>
 
@@ -449,6 +462,56 @@ remove(name)
 ``` 
 
 
-#### Challanges with the pattern and possible approaches
+### 3.4) Performance Challenge and some approaches
 
-#### Use Cases
+<p>When using the property pattern it can possibly lead to some performance problems. To face these issues with performance there are some approaches to improve the performance of the application:
+    <ul>
+        <li>Interning Strings</li>
+        <li>Copy-on-read-Cashing</li>
+        <li>Refactoring to fields</li>
+        <li>Perfect Hashing</li>
+    </ul>
+</p>
+
+<p><i>Interning strings</i> is a way to save every unique String only once (immutable). Not every used string in your application is stored as often as it occurs. The comparison then only works by comparing their references with each other.</p>
+<p><i>Copy-on-read-Caching</i> is an approach that should only be used if there is a lot of memory accessible and there are only few changes in the properties while runtime. This tecnique always copys properties from a parent object to its child's property list when there is a read operation. So the lookup in the inherited property list is faster. BUT this a approach can lead to redundancies and inconsistencies.</p>
+<p><i>Refactoring to fields</i> means that you move back from flexible properties to static fields - but only for your most used properties. So you create instance variables for your most used properties. But it is hard to find out your most used properties. Probably you have to check this on runtime. Additionally your defined API gets inconsistenz by querying the values.</p>
+<p>The last approach of <i>Perfect Hashing</i> is a way to optimize the lookups in your HashMap by reducing collisions. Collisions are 2 or more distinct keys generate the same hash. The more collisions happen the worse the performance gets. So the Approach is to use a perfect hash function (e.g. from <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.6/org/apache/commons/lang/builder/HashCodeBuilder.html">Apache Commons</a>). With this function the HashFunction spreads the values in a more efficient way and reduces collisions. The lookups get faster. It mustn't be used on all existing property lists - it is most efficient if you know the properties at compile time.
+</p>
+
+## 4) Use Cases
+<p>By looking at some use cases where the property pattern is used - first <b>JavaScript</b> is to mention. JavaScript uses the pattern at its core and it is a concept of the language model.</p>
+
+<p>Another example is the RolePlayGame <b>Wyvern</b> (Creator Steve Yegge in 2001) which uses the pattern in with Java. It has many artifacts that are customizable. It needed to be very flexible at runtime to have those flexible artifacts. That's why the property pattern was used here - because of it's huge flexibility at runtime.</p>
+
+### 5) Some tradoffs
+<p>Finally there should be mentionend some tradoffs of the pattern. The property pattern offers <b>huge flexibility</b> but...
+    <ul>
+        <li>…a tradeoff in type safety and performance.</li>
+        <li>…a  tradeoff in queryability.</li>
+        <li>is harder to implement in languages that don‘t provide properties from scratch (e.g. JavaScript)</li>
+    </ul>
+</p>
+
+# Literature
+<ul>
+  <li>
+    <a href="http://steve-yegge.blogspot.de/2008/10/universal-design-pattern.html">Steve Yegge: The Universal Design Pattern</a>
+  </li>
+  <li>
+    <a href="https://www.martinfowler.com/apsupp/roles.pdf">Martin Fowler: Dealing with roles</a>
+  </li>
+  <li>
+    <a href="https://martinfowler.com/apsupp/properties.pdf">Martin Fowler: Dealing with properties</a>
+  </li>
+  <li>
+    <a href="http://www.adrianwalker.org/2013/03/properties-design-pattern-and-prototype.html">Adrian Walker: Properties design pattern and Prototype-based programming in Java</a>
+  </li>
+  <li>
+    <a href="http://hillside.net/europe/EuroPatterns/files/DIY_Reflection.pdf">Peter Sommerlad and Marcel Rüedi: Do-it-yourself Reflection</a>
+  </li>
+  <li>
+    <a href="https://www.codeproject.com/Articles/10103/Refactoring-to-Adaptive-Object-Modeling-Property-P">Christopher G. Lasater: Refactoring to Adaptive Object Modeling: Property Pattern</a>
+  </li>
+</ul>
+
