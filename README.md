@@ -8,7 +8,7 @@
 
 <p>Martin Fowler explains the term "Property" as some information about an object that can be obtained by a query-method or updated by a modifier-method. In his purpose properties may be value types such as in Java or instances of classes. Furthermore clients have the possibilities of using modifier-methods, like the set-method at the beginning point of creating an object or also the storing of a property as an instance variable or data member. Classes are able to get the value from other classes or getting them by going through some calculations. All these possiblities are optional ways of implementation and not necessarily at all. In Martin Fowler`s opinion the interface view is much more important then the implemention view of properties. In his mind, the essence of object-orientation is a strictly separation of interfaces from implementation. He is putting the focus on the main difference between using fixed properties and dynamic properties.<p>
 
-<p>Steve Yegge is representing a different view of properties. In his opinion the properties are a very grateful tool of domain modeling with its own unique strengths and tradeoffs for programmers. He calls it the "Universal Design Pattern". He compares it to the Prototype Pattern, where the reuse of behaviour or inheritance is a main content. Furthermore he mentions other terms like "Do-it-yourself Reflection" with the focus on a Property List, Anything and a Registry and "Adaptive Object Modeling", where attributes are held as a collection of properites. There are three conceptual underpinnings of the Property Pattern:<p>
+<p>Steve Yegge is representing a different view of properties. In his opinion the properties are a very grateful tool of domain modeling with its own unique strengths and tradeoffs for programmers. He calls it the "Universal Design Pattern". He compares it to the Prototype Pattern, where the reuse of behaviour or inheritance is a main content. Furthermore he mentions other terms like "Do-it-yourself Reflection" with the focus on a Property List, Anything and a Registry and "Adaptive Object Modeling", where attributes are held as a collection of properties. There are three conceptual underpinnings of the Property Pattern:<p>
 <ul>
   <li>
     <p>Classes and Instances</p>
@@ -25,7 +25,7 @@
 <h2> <strong> 2) Approaches in Property Modeling </strong></h2> <p>
 <h3> <strong> 2.1) Fixed Properties versus Dynamic Properties</strong> </h3> <p>
 
-<p> Alomost every object needs properties at the beginning of its creation. There are a lot of ways using properties, for example every soccer team may have a captain, a book may have a isbn number or a person may have a name. Martin Fowler is speaking about two fundamental differences in using the property pattern, the fixed and dynamic properties. Different kind of problems can be solved by using the right option. Most of the time with fixed properties, but there are also situations where various dynamic properties are the right solution of implementing and solving problems. The following table gives an overview of the different kinds of properties, which Martin Fowler is demonstrating: </p>
+<p> Alomost every object needs properties at the beginning of its creation. There are a lot of ways using properties, for example every soccer team may have a captain, a book may have a isbn number or a person may have a name. Martin Fowler is speaking about two fundamental differences in using the property pattern, the fixed and dynamic properties. Different kinds of problems can be solved by using the right option. Most of the time with fixed properties, but there are also situations where various dynamic properties are the right solution of implementing and solving problems. The following table gives an overview of the different kinds of properties, which Martin Fowler is demonstrating: </p>
 
 
 <table>
@@ -195,9 +195,6 @@ class Player {
     // return the contact type
    } 
 ```
-
-<p> All in all the Defined Dynamic Property is a useful enlargement of the Flexible Dynamic Property. The keys are limited by the instance of contact type with the possibility of adding properties at run time. By using the checking-method, the client is able to look up a list with all legal keys. But still the problem of difficult substitution for operations exists. <p>
-
 ```java
 class ContactType {
     public static Enumeration instances();
@@ -205,6 +202,8 @@ class ContactType {
     public static ContactType get (String name);
     }
 ```
+
+<p> All in all the Defined Dynamic Property is a useful enlargement of the Flexible Dynamic Property. The keys are limited by the instance of contact type with the possibility of adding properties at run time. By using the checking-method, the client is able to look up a list with all legal keys. But still the problem of difficult substitution for operations exists. <p>
 
 <p><h3> <strong> 2.6) The Typed Dynamic Property </strong> </h3><p>
 
@@ -236,7 +235,7 @@ class ContactType {
 
 <p><h3> <strong> 2.7) The Separate Properties </strong> </h3><p>
 
-<p> The next form of a dynamic property is the so called Defined Dynamic Property. The client creates a separate object for each property. Facts about that property can then be made properties of that object. It is a further enlargement of the Typed Dynamic Property. The code below shows the implementing of the class ContactProperty and class Player.<p>
+<p> The next form of a dynamic property is the so called Separate Property. The client creates a separate object for each property. Facts about that property can then be made properties of that object. It is a further enlargement of the Typed Dynamic Property. The code below shows the implementing of the class ContactProperty and class Player.<p>
 
 ```java
 class ContactProperty {
@@ -250,7 +249,7 @@ class ContactProperty {
 
 <p><h3> <strong> 2.8) The Typed Relationship</strong> </h3><p>
 
-<p>The named examples of dynamic properties above had the focus on Single-valued associations for each key. But there are also the possiblities of implementing Multi-Valued associations. One Possibility to fix this is the Typed Relationship. The client creates a relationship object for each link between the two objects and gives the relationship object a type object to indicate the meaning of the relationship itself. The type object is the name of the multi-valued property. The code below shows a possible implementation of a Typed Relationship.<p>
+<p>The named examples of dynamic properties above had the focus on Single-valued associations for each key. But there are also the possiblities of implementing Multi-Valued associations. One Possibility to fix this is the Typed Relationship. The client creates a relationship object for each link between the two objects and gives the relationship object a type object to indicate the meaning of the relationship itself. The type object is the name of the multi-valued property. The code below shows a possible implementation of a Typed Relationship, where a Player has more then one relationship with some different skills.<p>
 
 ```java
 clas Skill {
@@ -266,12 +265,12 @@ class Player {
    }
 ```
 
-<p> The Typed Relationship is perfect for bi-directional relationships and easy to implement. The client can also provides a simple point to add properties into the relationship. <p>
+<p> The Typed Relationship is perfect for bi-directional relationships and easy to implement. The client can also provide a simple point to add properties into the relationship. <p>
  
 <p><h3> <strong> 2.9) Further Dynamic Properties</strong> </h3><p>
 
-<p> There are many forms of Dynamic Properties. The listed properties above are the most common ones of implementations, but in this chapter two further forms are shortly introduced. The first one is the so called Dynamic Property Knowledge Level, which answers the question how the client enforces that certain kinds of objects have certain properties when the client is using dynamic properties. In this case he is creating a knowledge level to contain the rules of what types of objects are using which types of properties. There can be more types of the class Player. Imagine you have a goalkeeper and a forward, which need the access to different properites with different skills in it. This point is also called the Roles Pattern.<p>
-<p> Another form is the Extrinsic Property. It answers the questions how a client gives an object a property without changing its inferface. The client is making another object responsible for knowing about the property. A good example is a connection system, where a connection manager is controlling the properties of every connection, for example is busy or is free. He opens and closes new connections and is responsible for the administration of all properties and connections.<p>
+<p> There are many forms of Dynamic Properties. The listed properties above are the most common ones of implementations, but in this chapter two further forms are shortly introduced. The first one is the so called Dynamic Property Knowledge Level, which answers the question how the client enforces that certain kinds of objects have certain properties when the client is using dynamic properties. In this case he is creating a knowledge level to contain the rules of what types of objects are using which types of properties. There can be more types of the class Player. Imagine you have a goalkeeper and a forward, which need the access to different properties with different skills in it. This point is also called the Roles Pattern.<p>
+<p> Another form is the Extrinsic Property. It answers the question how a client gives an object a property without changing its inferface. The client is making another object responsible for knowing about the property. A good example is a connection system, where a connection manager is controlling the properties of every connection, for example is busy or is free. He opens and closes new connections and is responsible for the administration of all properties and connections.<p>
 
 
 
