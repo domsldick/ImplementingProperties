@@ -279,15 +279,15 @@ class Player {
 
 <p>After reading more about different approaches to model various kinds of problems as a property and the comparison of the fixed and the dynamic properties we're moving on to different rules to implement the property pattern.</p> 
 
-<p>First of all it is about to get a basic understanding of "Property Based Modeling". I want to use an example which should be quite simple to understand for all of us - soccer.</p>
+<p>First of all it is about to get a basic understanding of "Property Based Modeling". I want to use an example which should be quite simple to understand for all of us: soccer.</p>
 
-<p>Let's consider that there is an existing class `Soccerplayer` which represents a basic soccer player. If there is a new soccerplay like Lionel Messi - he is an instance of this class. But Lionel Messi is not just a basic soccer player - he is known as one of the best of all time. So it is clear that he has some special properties compared to other soccer players. So he is "great" at dribbling, very "fast" but not really good in headers - probably because he is not really tall.</p> 
+<p>Let's consider that there is an existing class "Soccerplayer" which represents a basic soccer player. If there is a new soccer player like Lionel Messi - he is an instance of this class. But Lionel Messi is not just a basic soccer player - he is known as one of the best of all time. So it is clear that he has some special properties compared to a basic soccer player. So he is "great" at dribbling, very "fast" but not really good in headers - probably because he is not really tall.</p> 
 
-<p>After a few years there is a new soccer player - a big talent. His name is "Leon Goretzka". Some people say that Leon Goretzka is a lot like Lionel Messi. So here comes another pattern into play which works quite well together with the property pattern - the prototype pattern. That means any easy way to create Leon Goretzka with it's Properties is to clone the instance of Lionel Messi. He get's the same properties as Lionel Messi but it is also possible to overwrite them or add new properties. Important is that Leon Goretzka doesn't have those properties in his own instance. It is just a connection to Lionel Messi which represents the properties. In our example we add the property "Defensive" because Leon Goretzka has great defensive skills. Additionally it is possible to overwrite properties which are inherited from Lionel Messi.</p>
+<p>After a few years there is a new soccer player - a big talent. His name is "Leon Goretzka". Some people say that Leon Goretzka is a lot like Lionel Messi. So here comes another pattern into play which works quite well together with the property pattern - the <b>prototype pattern</b>. This means: An easy way to create Leon Goretzka with its Properties is to clone the instance of Lionel Messi. He get's the same properties as Lionel Messi but it is also possible to overwrite them or add new properties. Important is that Leon Goretzka doesn't have those properties in his own instance. It is just a connection to Lionel Messi which represents the properties. In our example we add the property "Defensive" because Leon Goretzka has great defensive skills. Additionally it is possible to overwrite properties which are inherited from Lionel Messi.</p>
 
 ![propertyExample](figures/propertyExample.png)
 
-<p>This is just a formal example to get familiar with the way that properties are being inherited and connected. This is the basis for understanding the property pattern.</p>
+<p>This is just a formal example to get familiar with the way that properties are being inherited and connected. It is the basis for understanding the property pattern.</p>
 
 ### 3.2) The pattern itself
 
@@ -296,9 +296,9 @@ class Player {
     <i>"The Property pattern is used to attach a flexible set of attributes to an object at run-time."</i>
 </p>
 
-<p>In relation to the statement above the property pattern gives a maximum amount of flexibility of a software application in the runtime. It is not necessary to know all the properties while developing that can be needed while runtime. The application gets quite flexible with its handling of the attributes. Of course there are some disadvantages, too. </p>
+<p>In relation to the statement above the property pattern gives a maximum amount of flexibility of a software application in the runtime. It is not necessary to know all the properties at developping that may be needed while runtime. The application gets quite flexible with its handling of the attributes. Of course there are some disadvantages, too. But the tradoffs are listed later on.</p>
 
-<p>The property pattern is a way of data modeling to solve the following questions:
+<p>The property pattern is some way of data modeling to solve the following questions:
 <ul>
     <li>How do you define parameters in a flexible way? </li>
     <li>How do you define the attributes of your components in a way they can be extended by client components?</li>
@@ -316,16 +316,15 @@ class Player {
 </p>
 
 ### 3.3) Basic Requirements
-<p>In a type safe language (e.g. Java, C#) the property pattern is mostly implemented by using some kind of key-value Data Structure (e.g. Map) to store the different Properties. The DataStructure represents the Objects.In the following the code examples are completely based on Java.</p>
+<p>In a type safe language (e.g. Java, C#) the property pattern is mostly implemented by using some kind of key-value data structure (e.g. Map) to store the different properties. The data structure here represents the Objects. In the following the shown code examples are completely based on Java.</p>
 
 ##### The Data Structure 
 
-</p>
-One possible Data Structure is a<b>LinkedList</b>.This is the simplest way to realize it. But it should be used only for small property lists beacause you can get to performance issues when the list is getting bigger. </p>
+<p>One possible data structure is a <b>LinkedList</b> .This is the simplest way to realize it. But it should be used only for small property lists beacause you can get to performance issues when the list is getting bigger. </p>
 
 <p>To get a constant performance it is a good practice to use a <b>HashTable</b> for storing the properties. It guarantees almost constant performance for finding, inserting and removing properties. But the tradeoffs are cost of memory and the cost of using the hash function for every access of the list.</p>
 
-<p>Steve Yegge recommends in his Blogpost <a href="http://steve-yegge.blogspot.de/2008/10/universal-design-pattern.html#Intro">The Universal Design Pattern</a> to use a hybrid approach of both named data structures. Depending of the amount of elements in the list you choose the data structure. For Example: As long as there are not more than 50 elements in the property list, you use a LinkedList - afterwards you change your data structure to a HashTable.</p>
+<p>Steve Yegge recommends in his Blogpost <a href="http://steve-yegge.blogspot.de/2008/10/universal-design-pattern.html#Intro">The Universal Design Pattern</a> to use a hybrid approach of both named data structures. Depending on the amount of elements in the list you choose the data structure. For Example: As long as there are not more than 50 elements in the property list, you use a LinkedList - afterwards you change your data structure to a HashTable.</p>
 
 #### The Core API
 
@@ -335,8 +334,8 @@ One possible Data Structure is a<b>LinkedList</b>.This is the simplest way to re
 // Returns the value for a given name (=key)
 get(name)
 
-put(name, value)
 // Add new key-value pair to the Property List
+put(name, value)
 
 // Check if a given value exists for the key
 has(name)
@@ -344,13 +343,13 @@ has(name)
 //Remove the value for the given name
 remove(name)
 ```
-<p>So with this API you have the full access to your property lists. Each Property List should implement this API. Additionally it is possible to implement a further method `filter` to iterate over the properties with a given criteria.</p>
+<p>So with this API you have the full access to your property lists. Each property list should implement this API. Additionally it is possible to implement a further method `filter` to iterate over the properties with a given criteria.</p>
 
 <p>Thinking back to our example of Lionel Messi and Leon Goretzka it is important to always keep in mind that a property can have a parent or prototype property which it inherits from. By the concrete implementing of the core API (e.g. in HashMap) it is important to check for parent properties.</p>
 
 #### Implementing the Core API
 
-<p>Now let's go through the implementation on a concrete implemntation example. We have a interface Properties which represents our named core API:</p>
+<p>Now let's go through the implementation on a concrete implementation example. We have an interface "Properties" which represents our named core API:</p>
 
 ```java 
 interface Properties<N, V> {
@@ -365,7 +364,7 @@ interface Properties<N, V> {
 }
 ```
 
-<p>In addition we have an interface CloneableProperties which is extended by 'Cloneable' to make sure we can clone our properties. This is for using the prototpye pattern as mentioned before.</p>
+<p>In addition we have an interface "CloneableProperties" which is extended by 'Cloneable' to make sure we can clone our properties. This is for using the prototpye pattern as mentioned before.</p>
 
 
 ```java 
@@ -375,17 +374,15 @@ interface CloneableProperties<N, V> extends Properties<N, V>, Cloneable {
 }
 ```
 
-<p>In this example there is concrete implementation of the property pattern using a HashMap as our data structure. This implementation is done in the class `HashMapProperties`. In the heart of this class there is the just named HashMap storing the properties. Additionally there is a reserved constant `PROTOTYPE` which represents the link to a parent clone or prototype (if existent). To see the full implementation you can view the <a href="implementing-properties_lsg.zip">exercise solution</a> with the corresponding project.</p>
+<p>In this example there is a concrete implementation of the property pattern using a HashMap as our data structure. This implementation is done in the class "HashMapProperties". In the heart of this class there is the just named HashMap storing the properties. Additionally we have a reserved constant `PROTOTYPE` which represents the link to a parent clone or prototype (if existent). To see the full implementation you can view the <a href="implementing-properties_lsg.zip">exercise solution</a> with the corresponding project.</p>
 
-<p>
-    Following there is the concrete implemention of the core API (except of the `has` method)
-</p>
-
-<p>With the `get`-method you retrieve a property for a given key from the property list. First it is about to check for the key in the local property list. If it isn't there it is about to check in the parent list (if there is a parent list existing). In case that no parent list is having this property it is to be defined by the developer which value represents "Not found". In the example the return value is `null`.  
+#### Retrieving properties
+<p>With the get-method you retrieve a property for a given key from the property list. First it is about to check for the key in the local property list. If it isn't there it is about to check in the parent list (if there is a parent list existing). In case that no parent list is having this property it is to be defined by the developer which value represents "Not found". In the example the return value is `null`.  
 </p>
 
 ```java
   public V get(final String name) {
+  
     // First check in your local property list for the given key, if it is found return it
     if (properties.containsKey(name)) {
  
@@ -406,7 +403,8 @@ interface CloneableProperties<N, V> extends Properties<N, V>, Cloneable {
   }
 ```
 
-<p>By adding new properties to the list it is important to make sure that the new key isn't the key to the parent property list. Furthermore the value should be an instance of `Properties`. If the given arguments do not match these criterias you can through an exception or handle it otherwise. If the arguments are OK add them to the local property list.</p>
+#### Adding properties
+<p>By adding new properties to the list it is important to make sure that the new key isn't the same key to the parent property list. Furthermore the value should be an instance of "Properties". If the given arguments do not match these criterias you can throw an exception or alternatively handle it otherwise. If the arguments are OK add them to the local property list.</p>
 
 ```java
   public V put(final String name, final V value) {
@@ -421,14 +419,15 @@ interface CloneableProperties<N, V> extends Properties<N, V>, Cloneable {
   }
 ``` 
 
-<p>The deletion of a property from the list represents a special situation. There can be a so called "Deletion problem" in inherited property lists. This go's back to the above mentioned problem of how to present missing values (Is it null oder should it be a special value NOT_PRESENT?). This problem only occurs in case of inheritance in the property list. The concrete situation here is when the child looses an inherited value. Because by lookup for the property your target for lookup is the parent - and there this value is still present. If you want to remove that value only for the local property you should mark it in only in the local property list (e.g. by setting the property on NOT_PRESENT or null). If you edit the parent's property all children inherit this value - so we change it globally but it is just a local change in one instance.</p>
+### Deleting properties
+<p>The deletion of a property from the list represents faces a special situation. There can be a so called "Deletion problem" for inherited property lists. This go's back to the above mentioned problem of how to present missing values (Is it null oder should it be a special value NOT_PRESENT?). This problem only occurs in case of inheritance in the property list. The concrete situation here is when the child looses an inherited value. Because by lookup for the property your target for the lookup is the parent - and there this value is still present. If you want to remove that value only for the local property you should mark it only in the local property list (e.g. by setting the property on NOT_PRESENT or null). If you edit the parent's property all children inherit this value - so we change it globally but it is just a local change in one instance.</p>
 
 
-<p>So if you look in the `remove`-method below you can see exactly the mentioned lookups.
+<p>So if you look in the remove-method below you can see exactly those mentioned lookups:
     <ol>
         <li>Check if a prototype exists</li>
         <li>If prototype exists: Check if the prototype has the key</li>
-        <li>If so: Add the relevant property to the local list and set it to null (here we defined `null`instead of NOT_PRESENT)</li>
+        <li>If so: Add the relevant property to the local list and set it to null (here we defined `null` instead of NOT_PRESENT)</li>
         <li>If there is no prototype or the prototype doesn't have the property: remove the value from the local list</li>
     </ol>
 </p>
@@ -487,9 +486,9 @@ interface CloneableProperties<N, V> extends Properties<N, V>, Cloneable {
 ### 5) Some tradoffs
 <p>Finally there should be mentionend some tradoffs of the pattern. The property pattern offers <b>huge flexibility</b> but...
     <ul>
-        <li>…a tradeoff in type safety and performance.</li>
-        <li>…a  tradeoff in queryability.</li>
-        <li>is harder to implement in languages that don‘t provide properties from scratch (e.g. JavaScript)</li>
+        <li>...a tradeoff in type safety and performance.</li>
+        <li>...a  tradeoff in queryability.</li>
+        <li>...is harder to implement in languages that don‘t provide properties from scratch (e.g. JavaScript)</li>
     </ul>
 </p>
 
